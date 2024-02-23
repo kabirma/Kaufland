@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: DockerFile
+    container_name: DataFeed-PHP
+    restart: always
+    working_dir: /var/www/
+    volumes:
+      - .:/var/www
+      - ./custom.ini:/usr/local/etc/php/conf.d/custom.ini
+
+
+
+  nginx:
+    image: nginx:1.19-alpine
+    container_name: DataFeedServer-nginx
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ../:/var/www
+      - ./:/etc/nginx/conf.d
+
+  mysql_db:
+    image: mysql
+    restart: always
+    command: mysqld --sql_mode='';
+    environment:
+      MYSQL_DATABASE: datafeed
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - ./mysql-dump:/docker-entrypoint-initdb.d
+
+  # postgresql_db:
+  #   image: postgres
+  #   restart: always
+  #   environment:
+  #     POSTGRES_USER: root
+  #     POSTGRES_DB: datafeed
+  #     POSTGRES_PASSWORD: password
+  #   volumes:
+  #     - ./pgsql-dump:/docker-entrypoint-initdb.d
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8080:8080"
+
+  memcached:
+    image: memcached:latest
+    container_name: memcachedserver
+    ports:
+      - "11211:11211"
