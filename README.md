@@ -9,7 +9,7 @@ muhammadahmer.004@gmail.com
 
 2. Then after this I am converting the data in array and using Doctrine Batch Insert saving it to a Postgresql/MySql database I used Doctrine to be able to manage multiple database without changing code using Doctrine ORM, I am using a postgresql-dump/mysql-dump to create the necessary tables in the start then rest of the work is automated. The database dump are in thier respective folders mysql-dump and pgsql-dump, we can also extend this to SQlite if we want with little work only.
 
-3.Table structure is divided into 3 Tables Post thier Categories and Brands, and using simple Many to One our Post I am saving all of them in a Batch.
+3. Table structure is divided into 3 Tables Post thier Categories and Brands, and using simple Many to One our Post I am saving all of them in a Batch.
 
 4. I have also written PHPUnit Test on the Model Process function as its the core of the App to test its functionality, I am using a JSON Object for this purpose
 
